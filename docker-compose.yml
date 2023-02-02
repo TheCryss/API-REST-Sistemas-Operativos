@@ -11,7 +11,8 @@ services:
     networks:
       - app-network
     container_name: web
-    
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/app_db
   db:
     image: postgres
     restart: always
@@ -21,7 +22,7 @@ services:
       POSTGRES_USER: postgres
     networks:
       - app-network
-    container_name: postgresql_service   
+    container_name: postgresql_service
 
 networks:
   app-network:
