@@ -30,9 +30,8 @@ def get_counter():
         # Ejecutar una consulta
         cur.execute("SELECT * FROM contador")
         # Obtener el resultado de la consulta
-        database_name = cur.fetchone()[0]
-        increase(conn)
-        return "Has visitado la pagina "+str(database_name)+" veces"
+        contador = cur.fetchone()[0]
+        return "Has visitado la pagina "+str(contador)+" veces"
     except Exception as e:
         # Manejar la excepción
         return str(e)
@@ -49,6 +48,9 @@ def reset_counter():
         cur= conn.cursor()
         # Obtener el resultado de la consulta
         reset(conn)
+        ##Consulta para ver el nuevo valor
+        cur.execute("SELECT * FROM contador")
+        # Obtener el resultado de la consulta
         database_name = cur.fetchone()[0]
         return "El contador fue resetado a "+str(database_name)
     except Exception as e:
@@ -75,7 +77,10 @@ def add_counter():
         conn = psycopg2.connect(database_url)
         cur = conn.cursor()
         update(conn)
-        counter_value= cur.execute("SELECT * FROM contador")
+        # Consulta para ver el nuevo valor
+        cur.execute("SELECT * FROM contador")
+        # Obtener el resultado de la consulta
+        counter_value = cur.fetchone()[0]
         return f"El contador ha sido actualizado a {counter_value}"
     except Exception as e:
         return str(e)
@@ -100,5 +105,26 @@ def update_counter(value):
     except Exception as e:
         return str(e)
     finally:
+        if conn:
+            conn.close()
+
+## Put que incrementa el contador en 1
+@app.route("/counter",methods=['PUT'])
+def increase_counter():
+    database_url = os.getenv("DATABASE_URL")
+    try:
+        conn = psycopg2.connect(database_url) # Conectar a la base de datos
+        cur = conn.cursor() # Crear un cursor
+        increase(conn)
+        # Ejecutar una consulta
+        cur.execute("SELECT * FROM contador")
+        # Obtener el resultado de la consulta
+        database_name = cur.fetchone()[0]
+        return "Se ha incrementado a 1, ahora el valor del contador es "+str(database_name)
+    except Exception as e:
+        # Manejar la excepción
+        return str(e)
+    finally:
+        # Cerrar la conexión
         if conn:
             conn.close()
