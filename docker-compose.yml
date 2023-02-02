@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code
+    depends_on:
+      - db 
+    networks:
+      - app-network
+    container_name: web
+    
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+      POSTGRES_USER: postgres
+    networks:
+      - app-network
+    container_name: postgresql_service   
+
+networks:
+  app-network:
+    driver: bridge
+    #volumes:
+      #- ./data/db:/var/lib/postgresql/data #guardar la base datos en un directorio local
