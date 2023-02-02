@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+
   web:
     build: .
     ports:
@@ -23,6 +24,9 @@ services:
     networks:
       - app-network
     container_name: postgresql_service
+    volumes:
+      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
+
 
 networks:
   app-network:

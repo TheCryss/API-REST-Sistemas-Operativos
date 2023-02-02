@@ -6,7 +6,6 @@ ENV FLASK_DEBUG=TRUE
 RUN apk add --no-cache gcc musl-dev linux-headers
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-#CMD python create_and_insert.py 
 EXPOSE 5000
 COPY . .
 CMD ["flask", "run"]
