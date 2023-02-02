@@ -26,10 +26,7 @@ services:
     container_name: postgresql_service
     volumes:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
-
-
 networks:
   app-network:
     driver: bridge
-    #volumes:
-      #- ./data/db:/var/lib/postgresql/data #guardar la base datos en un directorio local
+
