@@ -13,6 +13,8 @@ Se realizó un REST API *(es una interfaz que dos sistemas de computación utili
 - Luego, colocar el comando <code>cd API-REST-Sistemas-Operativos/</code> para ingresar a la carpeta.
 - Por último, debes colocar el comando <code>docker compose up</code> para lanzar la aplicación.
 
+***
+
 ## Como usar la aplicacion
 
 A continuación se le describira cada uno de los endpoints y el comando que debe ingresar en consola una vez hayas hecho el <code>docker compose up</code>
