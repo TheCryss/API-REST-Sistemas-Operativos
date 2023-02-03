@@ -3,6 +3,7 @@ services:
   web:
     build: .
     ports:
+    ##Significa que el puerto 8000 del host se mapea al puerto 5000 del contenedor
       - "8000:5000"
     volumes:
       - .:/code
